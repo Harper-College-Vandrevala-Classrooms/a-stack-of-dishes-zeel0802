@@ -11,9 +11,13 @@ public class Main {
         System.out.println("All Dishes in the Stack:");
         stack.printStack();
 
-        System.out.println("\nDish with Minimum Size: " + stack.getMinDish());
-
-        stack.pop();
-        System.out.println("\nDish with Minimum Size after one pop: " + stack.getMinDish());
+        // Search for a dish by size
+        int searchSize = 5;
+        int position = stack.searchDish(searchSize);
+        if (position != -1) {
+            System.out.println("\nDish with size " + searchSize + " found at position (from top): " + position);
+        } else {
+            System.out.println("\nDish with size " + searchSize + " not found in the stack.");
+        }
     }
 }
