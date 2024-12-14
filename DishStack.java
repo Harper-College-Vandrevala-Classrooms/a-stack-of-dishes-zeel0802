@@ -1,45 +1,48 @@
-// DishStack.java
-public class DishStack {
-    private Dish[] stack;
-    private int maxSize;
-    private int top;
+import java.util.Stack;
 
-    // Constructor to initialize the stack with a maximum size
-    public DishStack(int maxSize) {
-        this.maxSize = maxSize;
-        stack = new Dish[maxSize];
-        top = -1; // Indicates that the stack is empty
+public class DishStack {
+    private Stack<Dish> mainStack;
+    private Stack<Dish> minStack;
+
+    public DishStack() {
+        mainStack = new Stack<>();
+        minStack = new Stack<>();
     }
 
     // Push a dish onto the stack
     public void push(Dish dish) {
-        if (top >= maxSize - 1) {
-            System.out.println("Stack is full. Cannot push new dish.");
-            return;
+        mainStack.push(dish);
+        if (minStack.isEmpty() || dish.getSize() <= minStack.peek().getSize()) {
+            minStack.push(dish);
         }
-        stack[++top] = dish;
     }
 
-    // Pop a dish off the stack
+    // Pop a dish from the stack
     public Dish pop() {
-        if (top == -1) {
-            System.out.println("Stack is empty. Cannot pop.");
+        if (mainStack.isEmpty()) {
+            System.out.println("Stack is empty!");
             return null;
         }
-        return stack[top--];
+        Dish poppedDish = mainStack.pop();
+        if (poppedDish.equals(minStack.peek())) {
+            minStack.pop();
+        }
+        return poppedDish;
     }
 
-    // Peek at the top dish without removing it
-    public Dish peek() {
-        if (top == -1) {
-            System.out.println("Stack is empty. Cannot peek.");
+    // Get the dish with the minimum size
+    public Dish getMinDish() {
+        if (minStack.isEmpty()) {
+            System.out.println("Stack is empty!");
             return null;
         }
-        return stack[top];
+        return minStack.peek();
     }
 
-    // Get the current size of the stack
-    public int size() {
-        return top + 1;
+    // Print all dishes in the stack
+    public void printStack() {
+        for (Dish dish : mainStack) {
+            System.out.println(dish);
+        }
     }
 }

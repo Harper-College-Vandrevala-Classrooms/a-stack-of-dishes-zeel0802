@@ -1,8 +1,16 @@
-// Dish.java
 public class Dish {
-    public String description;
+    private int size;
 
-    public Dish(String description) {
-        this.description = description;
+    public Dish(int size) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish [size=" + size + "]";
     }
 }
